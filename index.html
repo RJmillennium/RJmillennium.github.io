@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <Style>
+        @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  color: #fcdf00;
+  background: #0d67ad;
+}
+
+#timer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  z-index: 2;
+}
+
+.timer-container {
+  font-size: 3em;
+}
+
+.timer-container span {
+  white-space: nowrap;
+}
+
+#content {
+  opacity: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#content h1 {
+  font-size: 10vmax;
+  transform: scale(1.25);
+}
+
+#content.visible {
+  opacity: 1;
+  animation: colorChange 1s ease-in-out 0.5s forwards;
+}
+
+#content.visible h1 {
+  animation: scaleOut 1s ease-in-out 0.5s forwards;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  padding: 1em;
+  text-align: center;
+  background-color: #ffdfb9;
+  color: #0d67ad;
+}
+
+footer a {
+  color: #0d67ad;
+  text-decoration: none;
+}
+
+footer .heart {
+  color: #dc143c;
+}
+
+@keyframes colorChange {
+  from {
+    color: #fcdf00;
+    background-color: #0d67ad;
+  }
+  to {
+    color: white;
+    background-color: black;
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    transform: scale(1.25);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+    </Style>
+</head>
+<body>
+    <section id="timer" aria-live="polite">
+        <p>Late ke liye sry. . but wait</p>
+        <div class="timer-container">
+          <span id="days" role="timer">0 days</span>
+          <span id="hours" role="timer">0 hours</span>
+          <span id="minutes" role="timer">0 minutes</span>
+          and
+          <span id="seconds" role="timer">0 seconds</span>
+        </div>
+      </section>
+      
+      <section id="content">
+        <h1>Happy Birthday Raut</h1>
+      </section>
+<script>
+    let countdownDate = new Date('29 September 2023 00:10');
+
+let timerInterval;
+
+const daysElem = document.getElementById("days"),
+  hoursElem = document.getElementById("hours"),
+  minutesElem = document.getElementById("minutes"),
+  secondsElem = document.getElementById("seconds"),
+  timer = document.getElementById("timer"),
+  content = document.getElementById("content");
+
+const formatTime = (time, string) => {
+  return time == 1 ? `${time} ${string}` : `${time} ${string}s`;
+};
+
+const startCountdown = () => {
+  const now = new Date().getTime();
+  const countdown = new Date(countdownDate).getTime();
+
+  const difference = (countdown - now) / 1000;
+
+  if (difference < 1) {
+    endCountdown();
+  }
+
+  let days = Math.floor(difference / (60 * 60 * 24));
+  let hours = Math.floor((difference % (60 * 60 * 24)) / (60 * 60));
+  let minutes = Math.floor((difference % (60 * 60)) / 60);
+  let seconds = Math.floor(difference % 60);
+
+  daysElem.innerHTML = formatTime(days, "day");
+  hoursElem.innerHTML = formatTime(hours, "hour");
+  minutesElem.innerHTML = formatTime(minutes, "minute");
+  secondsElem.innerHTML = formatTime(seconds, "second");
+};
+
+const endCountdown = () => {
+  clearInterval(timerInterval);
+  timer.remove();
+  content.classList.add("visible");
+};
+
+window.addEventListener("load", () => {
+  startCountdown();
+  timerInterval = setInterval(startCountdown, 1000);
+});
+
+</script>
+</body>
+</html>
