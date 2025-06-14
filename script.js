@@ -188,11 +188,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Add a secret key combination to trigger birthday mode for testing
     // Press Ctrl+Shift+B to trigger birthday mode
-    document.addEventListener('keydown', (event) => {
-        if (event.ctrlKey && event.shiftKey && event.key === 'B') {
-            countdown.triggerBirthday();
-        }
-    });
+    // document.addEventListener('keydown', (event) => {
+    //     if (event.ctrlKey && event.shiftKey && event.key === 'B') {
+    //         countdown.triggerBirthday();
+    //     }
+    // });
 });
 
 // Add interactive features for time blocks
@@ -208,3 +208,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+document.getElementById('secret-trigger').addEventListener('click', function() {
+                            let count = parseInt(this.getAttribute('data-click-count')) + 1;
+                            this.setAttribute('data-click-count', count);
+                            
+                            if (count === 5) {
+                                const secretMessage = this.querySelector('.secret-message');
+                                secretMessage.style.display = 'block';
+                            }
+                        });
