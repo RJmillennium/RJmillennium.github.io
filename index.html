@@ -3,166 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <Style>
-        @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
-
-body {
-  margin: 0;
-  font-family: "Space Mono", monospace;
-  color: #fcdf00;
-  background: #0d67ad;
-}
-
-#timer {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  z-index: 2;
-}
-
-.timer-container {
-  font-size: 3em;
-}
-
-.timer-container span {
-  white-space: nowrap;
-}
-
-#content {
-  opacity: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-#content h1 {
-  font-size: 10vmax;
-  transform: scale(1.25);
-}
-
-#content.visible {
-  opacity: 1;
-  animation: colorChange 1s ease-in-out 0.5s forwards;
-}
-
-#content.visible h1 {
-  animation: scaleOut 1s ease-in-out 0.5s forwards;
-}
-
-footer {
-  bottom: 0;
-  width: 100%;
-  padding: 1em;
-  text-align: center;
-  background-color: #ffdfb9;
-  color: #0d67ad;
-}
-
-footer a {
-  color: #0d67ad;
-  text-decoration: none;
-}
-
-footer .heart {
-  color: #dc143c;
-}
-
-@keyframes colorChange {
-  from {
-    color: #fcdf00;
-    background-color: #0d67ad;
-  }
-  to {
-    color: white;
-    background-color: black;
-  }
-}
-
-@keyframes scaleOut {
-  from {
-    transform: scale(1.25);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-    </Style>
+    <title>Surprise ?</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <section id="timer" aria-live="polite">
-        <p>Late ke liye sry. . but wait</p>
-        <div class="timer-container">
-          <span id="days" role="timer">0 days</span>
-          <span id="hours" role="timer">0 hours</span>
-          <span id="minutes" role="timer">0 minutes</span>
-          and
-          <span id="seconds" role="timer">0 seconds</span>
+    <div class="container">
+        <!-- Countdown Section -->
+        <div id="countdown-section" class="section active">
+            <div class="countdown-header">
+                <h1 class="title">Just Another Countdown</h1>
+                <!-- <p class="subtitle">Something special <span id="friend-name">Alex</span>!</p> -->
+            </div>
+            
+            <div class="countdown-display">
+                <div class="time-block">
+                    <div class="time-number" id="hours">00</div>
+                    <div class="time-label">Hours</div>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-block">
+                    <div class="time-number" id="minutes">00</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-block">
+                    <div class="time-number" id="seconds">00</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+            </div>
+            
+            <div class="countdown-message">
+                <!-- <p>Until the big day arrives! 🎉</p> -->
+                <button id="preview-button" class="preview-btn">Preview Birthday Celebration</button>
+            </div>
         </div>
-      </section>
-      
-      <section id="content">
-        <h1>🎂 Happy Birthday Sanika 🎂</h1>
-      </section>
-<script>
-  let countdownDate = new Date().setSeconds(new Date().getSeconds() + 10);
 
-let timerInterval;
-
-const daysElem = document.getElementById("days"),
-  hoursElem = document.getElementById("hours"),
-  minutesElem = document.getElementById("minutes"),
-  secondsElem = document.getElementById("seconds"),
-  timer = document.getElementById("timer"),
-  content = document.getElementById("content");
-
-const formatTime = (time, string) => {
-  return time == 1 ? `${time} ${string}` : `${time} ${string}s`;
-};
-
-const startCountdown = () => {
-  const now = new Date().getTime();
-  const countdown = new Date(countdownDate).getTime();
-
-  const difference = (countdown - now) / 1000;
-
-  if (difference < 1) {
-    endCountdown();
-  }
-
-  let days = Math.floor(difference / (60 * 60 * 24));
-  let hours = Math.floor((difference % (60 * 60 * 24)) / (60 * 60));
-  let minutes = Math.floor((difference % (60 * 60)) / 60);
-  let seconds = Math.floor(difference % 60);
-
-  daysElem.innerHTML = formatTime(days, "day");
-  hoursElem.innerHTML = formatTime(hours, "hour");
-  minutesElem.innerHTML = formatTime(minutes, "minute");
-  secondsElem.innerHTML = formatTime(seconds, "second");
-};
-
-const endCountdown = () => {
-  clearInterval(timerInterval);
-  timer.remove();
-  content.classList.add("visible");
-};
-
-window.addEventListener("load", () => {
-  startCountdown();
-  timerInterval = setInterval(startCountdown, 1000);
-});
-
-</script>
+        <!-- Birthday Section -->
+        <div id="birthday-section" class="section">
+            <div class="birthday-content">
+                <header class="birthday-header">
+                    <h1 class="birthday-title">Happy Birthday</h1>
+                    <h2 class="birthday-name" id="birthday-friend-name">Sanskruti</h2>
+                </header>
+                
+                <div class="birthday-message">
+                    <p>Celebrating another year of wonderful memories and looking forward to many more amazing moments together.</p>
+                </div>
+                <div class="celebration-footer">
+                    <p>Here's to another year of adventures, laughter, and unforgettable moments!
+                    <br>May your day be filled with love, joy, and all the things that make you smile.</p>
+                    <p>Happiest Birthday, Sansy! 🎉</p>
+                    </p>
+                </div>
+                
+                <div class="masonry-gallery" id="photo-gallery">
+                    <div class="gallery-item">
+                        <img src="./images/NoirTry.jpg" alt="Birthday celebration" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="./images/Lmao.jpg" alt="Joyful times" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="./images/duh.jpg" alt="Special memories" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="./images/beauty.jpg" alt="Happy moments" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="./images/Huh mera phone.jpg" alt="Beautiful memories" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="./images/simplesansy.webp" alt="Cherished moments" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="./images/simplesansy.webp" alt="Cherished moments" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
